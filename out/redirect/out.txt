@@ -1,7 +1,0 @@
-450
-Exception in thread "main" java.io.EOFException
-	at java.base/java.io.DataInputStream.readFully(DataInputStream.java:203)
-	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:614)
-	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:570)
-	at data.Game.fromByteArray(Game.java:291)
-	at Main.main(Main.java:24)
