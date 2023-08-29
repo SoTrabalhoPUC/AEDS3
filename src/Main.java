@@ -1,29 +1,41 @@
 import data.DataParser;
 import data.Game;
 
-import javax.xml.transform.stream.StreamSource;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.RandomAccessFile;
 import java.util.Arrays;
 
 class Main{
     public static void main(String[] args)throws Exception {
-        FileInputStream fis = new FileInputStream("/Users/gabrieltodt/IdeaProjects/AEDS/out/byteArchive/game.bin");
-        DataInputStream dis = new DataInputStream(fis);
-
-
-        var raf = new RandomAccessFile("/Users/gabrieltodt/IdeaProjects/AEDS/resources/games.csv", "r");
-        var bin = new RandomAccessFile("/Users/gabrieltodt/IdeaProjects/AEDS/out/byteArchive/game.bin", "rw");
-        //Game = new Game(DataParser.parse(raf.readLine()));
-        int size = bin.readInt();
-        System.out.println(size);
-        byte [] byteArray = new byte[size];
-        Game g1 = new Game();
-        dis.read(byteArray);
-        g1.fromByteArray(byteArray);
-        System.out.println(g1.getName());
-
+        RandomAccessFile gamesCsv;
+        RandomAccessFile gamesBin;
+        System.out.println("antesf");
+        try {
+            gamesCsv = new RandomAccessFile("/Users/gabrieltodt/AEDS3/resources/games.csv", "rw");
+            gamesBin = new RandomAccessFile("/Users/gabrieltodt/AEDS3/out/byteArchive/games.db", "rw");
+            //Create new game
+            for(int i=0; i<4121; i++){
+                Game tmp = new Game(DataParser.parse(gamesCsv.readLine()));
+                byte[] bytes = tmp.toByteArray();
+                int size = bytes.length;
+                gamesBin.writeInt(size);
+                gamesBin.write(bytes);
+            }
+            Game[] games = new Game[4121];
+            //Carregar arquivos do hexadecimal
+            gamesBin.seek(0);
+            for(int i=0; i<4121;i++){
+                int size = gamesBin.readInt();
+                byte[] gameAttsBytes = new byte[size];
+                gamesBin.read(gameAttsBytes);
+                games[i] = new Game();
+                games[i].fromByteArray(gameAttsBytes);
+            }
+            for(int i=0; i<games.length; i++){
+                System.out.println(games[i].getName());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
 

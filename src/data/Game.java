@@ -205,7 +205,7 @@ public class Game {
      * Empty constructor.
      */
     public Game(){
-        this(false, false,false,-1,-1,-1,-1,-1,-1,null,null,null,null,null,null);
+        this(false, false,false,-1,-1,-1,-1,-1,-1,null,"SemNome",null,null,null,null);
     }
     /**
      * Constructor of the class.
@@ -281,13 +281,12 @@ public class Game {
 
     /**
      *
-     * @param byteArray
+     * @param byteArray Byte array containing the game attributes.
      * @throws IOException
      */
     public void fromByteArray(byte[] byteArray) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
         DataInputStream dis = new DataInputStream(bais);
-
         gameId = dis.readInt();
         name = dis.readUTF();
         releaseDate = new Date(dis.readLong());
@@ -296,6 +295,7 @@ public class Game {
         price = dis.readFloat();
         dlcs = dis.readInt();
         int vectorLen = dis.readInt();
+        languages = new String[vectorLen];
         for(int i=0; i<vectorLen; i++){
             languages[i] = dis.readUTF();
         }
@@ -306,8 +306,6 @@ public class Game {
         upvotes = dis.readInt();
         avg_pt = dis.readInt();
         developers = dis.readUTF();
-
-
     }
 }
 // id -> Name -> releaseDate -> owners -> age -> price -> dlcs -> languages -> website -> windows -> mac -> linux -> upvotes -> avgpt -> developers
