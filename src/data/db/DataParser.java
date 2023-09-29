@@ -1,4 +1,4 @@
-package data;
+package data.db;
 /**
  * Class responsible for handling CSV files.
  * This class provides methods to process data in the CSV file containing game records.

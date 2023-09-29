@@ -1,4 +1,4 @@
-package data;
+package data.db;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -226,24 +226,12 @@ public class Game {
         // Remove brackets and double quotes, then split the languages.
         languages = attributes[7].replaceAll("[\\[\\]']", "").split(",\\s*");
         website = attributes[8];
-        if(attributes[9].contains("True")){
-            windows = true;
-        }else{
-            windows = false;
-        }
-        if(attributes[10].contains("True")){
-            mac = true;
-        }else{
-            mac = false;
-        }
-        if(attributes[11].contains("True")){
-            linux = true;
-        }else{
-            linux = false;
-        }
+        windows = attributes[9].contains("True");
+        mac = attributes[10].contains("True");
+        linux = attributes[11].contains("True");
         upvotes = Integer.parseInt(attributes[12]);
         avg_pt = Integer.parseInt(attributes[13]);
-        developers = attributes[14];
+        developers = attributes[15];
     }
 
     /**
@@ -282,7 +270,7 @@ public class Game {
     /**
      *
      * @param byteArray Byte array containing the game attributes.
-     * @throws IOException
+     * @throws IOException input/outputStream exception.
      */
     public void fromByteArray(byte[] byteArray) throws IOException {
         ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);
