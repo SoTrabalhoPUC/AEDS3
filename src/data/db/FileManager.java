@@ -6,8 +6,8 @@ import java.text.ParseException;
 
 public class FileManager {
 
-    private static String csvFile = "/Users/gabrieltodt/AEDS3/resources/games.csv";
-    private static String binFile = "/Users/gabrieltodt/AEDS3/out/byteArchive/games.db";
+    private static String csvFile = "resources/games.csv";
+    private static String binFile = "out/byteArchive/games.db";
 
     public static String getBinFile() {
         return binFile;
